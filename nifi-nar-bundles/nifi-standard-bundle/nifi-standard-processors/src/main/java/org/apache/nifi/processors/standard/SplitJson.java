@@ -190,6 +190,10 @@ public class SplitJson extends AbstractJsonPathProcessor {
             logger.error("FlowFile {} did not have valid JSON content.", new Object[]{original});
             processSession.transfer(original, REL_FAILURE);
             return;
+        } catch (Exception e) {
+            logger.error("FlowFile {} failed to be parsed to JSON.", new Object[]{original});
+            processSession.transfer(original, REL_FAILURE);
+            return;
         }
 
         final JsonPath jsonPath = JSON_PATH_REF.get();
